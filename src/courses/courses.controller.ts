@@ -1,9 +1,6 @@
 import { Body, Controller, DefaultValuePipe, Get, Param, ParseIntPipe, Patch, Post, Query, ValidationPipe } from '@nestjs/common';
 import { CoursesService } from './courses.service';
-import { CreateCourseDto } from './dto/create-course.dto';
-import { UpdateCourseDto } from './dto/update-user.dto';
 import { Prisma } from '@prisma/client';
-import { query } from 'express';
 
 @Controller('courses')
 export class CoursesController {
@@ -18,16 +15,16 @@ export class CoursesController {
     }
     
     @Post()
-    createCourse(@Body(ValidationPipe) course:Prisma.CourseCreateInput){
-        return this.coursesService.createCourse(course)
+    postCourse(@Body(ValidationPipe) course:Prisma.CourseCreateInput){
+        return this.coursesService.postCourse(course)
     }
     @Patch(':id')
-    updateCourse(@Param('id', ParseIntPipe) id:number, @Body(ValidationPipe) course:UpdateCourseDto){
+    updateCourse(@Param('id', ParseIntPipe) id:number, @Body(ValidationPipe) course:Prisma.CourseUpdateInput){
         return this.coursesService.updateCourse(course)
     }
-    @Get(':id')
-    getCourse(@Param('id', ParseIntPipe) id:number){
-        return this.coursesService.getCourse(id)
+    @Get(':uuid')
+    getCourse(@Param('uuid', ParseIntPipe) uuid:string){
+        return this.coursesService.getCourse(uuid)
     }
     
 }

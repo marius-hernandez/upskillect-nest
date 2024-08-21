@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma } from '@prisma/client';
+import { CreateInstituteDto } from 'src/institutes/dto/create-institutes.dto';
+import { UpdateInstituteDto } from 'src/institutes/dto/update-institutes.dto';
 import { DatabaseService } from 'src/database/database.service';
 
 @Injectable()
@@ -8,32 +9,31 @@ export class InstitutesService {
 
   }
 
-  async create(createInstituteDto: Prisma.InstituteCreateInput) {
-    return this.databaseService.institute.create({
-      data:createInstituteDto
-    })
-  }
-
-  async findAll() {
+  async getInstitutes() {
     return this.databaseService.institute.findMany()
   }
-
-  async findOne(id: number) {
+  async getInstitute(uuid: string) {
     return this.databaseService.institute.findUnique({
-      where:{id}
+      where:{uuid}
     })
   }
 
-  async update(id: number, updateInstituteDto:Prisma.InstituteUpdateInput) {
+  async createInstitutes(institute: CreateInstituteDto) {
+    return this.databaseService.institute.create({
+      data:institute
+    })
+  }
+  
+  async updateInstitute(uuid: string, updateInstituteDto:UpdateInstituteDto) {
     return this.databaseService.institute.update({
-      where:{id},
+      where:{uuid},
       data:updateInstituteDto
     })
   }
 
-  async remove(id: number) {
+  async deleteInstitute(uuid: string) {
     return this.databaseService.institute.delete({
-      where:{id}
+      where:{uuid}
     })
   }
 }

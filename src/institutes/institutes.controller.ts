@@ -1,33 +1,32 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, ValidationPipe } from '@nestjs/common';
 import { InstitutesService } from './institutes.service';
-import { Prisma } from '@prisma/client';
+import { CreateInstituteDto } from 'src/institutes/dto/create-institutes.dto';
+import { UpdateInstituteDto } from 'src/institutes/dto/update-institutes.dto';
 
 @Controller('institutes')
 export class InstitutesController {
   constructor(private readonly institutesService: InstitutesService) {}
 
-  @Post()
-  create(@Body() createInstituteDto: Prisma.InstituteCreateInput) {
-    return this.institutesService.create(createInstituteDto);
-  }
-
   @Get()
-  findAll() {
-    return this.institutesService.findAll();
+  getInstitutes() {
+    return this.institutesService.getInstitutes();
+  }
+  @Post()
+  createInstitutes(@Body(ValidationPipe) institute: CreateInstituteDto) {
+    return this.institutesService.createInstitutes(institute);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.institutesService.findOne(+id);
+  @Get(':uuid')
+  getInstitute(@Param('uuid') uuid: string) {
+    return this.institutesService.getInstitute(uuid);
+  }
+  @Patch(':uuid')
+  updateInstitute(@Param('uuid') uuid: string, @Body() institute: UpdateInstituteDto) {
+    return this.institutesService.updateInstitute(uuid, institute);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateInstituteDto: Prisma.InstituteUpdateInput) {
-    return this.institutesService.update(+id, updateInstituteDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.institutesService.remove(+id);
+  @Delete(':uuid')
+  deleteInstitute(@Param('uuid') uuid: string) {
+    return this.institutesService.deleteInstitute(uuid);
   }
 }

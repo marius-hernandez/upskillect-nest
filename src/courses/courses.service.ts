@@ -17,12 +17,12 @@ export class CoursesService {
         {"courseTitle":"Time Management Essentials","institute":"Southern Arkansas University","location":"PO Box 93044","duration":10,"rating":2.98,"startsAt":366,"description":"Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus. Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst."}]
 
         getCourses(offset:number, limit:number){
-            return this.courses.slice(offset,offset+limit)
+            return this.databaseService.course.findMany()
         }
-        getCourse(id:number){
+        getCourse(uuid:string){
             throw new NotFoundException("User not found")
         }
-        createCourse(course:Prisma.CourseCreateInput){
+        postCourse(course:Prisma.CourseCreateInput){
             return this.databaseService.course.create({
                 data:course
             })
