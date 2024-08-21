@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateCourseDto } from './dto/create-course.dto';
-import { UpdateCourseDto } from './dto/update-user.dto';
-import { NotFoundError } from 'rxjs';
+import { Prisma } from '@prisma/client';
+import { DatabaseService } from 'src/database/database.service';
 
 @Injectable()
 export class CoursesService {
+    constructor(private readonly databaseService:DatabaseService){}
     private courses=[{"courseTitle":"Data Analysis and Visualization","institute":"Universitas Janabadra","location":"Room 956","duration":1,"rating":4.6,"startsAt":448,"description":"Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus. Pellentesque at nulla. Suspendisse potenti."},
         {"courseTitle":"Leadership Development Program","institute":"Universidad Nacional Federico Villarreal","location":"Apt 925","duration":2,"rating":3.95,"startsAt":241,"description":"Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio. Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo."},
         {"courseTitle":"Public Speaking Mastery","institute":"St. Joseph's University","location":"PO Box 82609","duration":3,"rating":2.75,"startsAt":481,"description":"Aenean sit amet justo. Morbi ut odio."},
@@ -16,17 +16,18 @@ export class CoursesService {
         {"courseTitle":"Data Analysis and Visualization","institute":"Antioch University Santa Barbara","location":"Room 1100","duration":9,"rating":1.97,"startsAt":322,"description":"Fusce consequat. Nulla nisl. Nunc nisl."},
         {"courseTitle":"Time Management Essentials","institute":"Southern Arkansas University","location":"PO Box 93044","duration":10,"rating":2.98,"startsAt":366,"description":"Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus. Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst."}]
 
-        getCourses(offset=0, limit=5){
+        getCourses(offset:number, limit:number){
             return this.courses.slice(offset,offset+limit)
         }
         getCourse(id:number){
             throw new NotFoundException("User not found")
         }
-
-        postCourse(course:CreateCourseDto){
-            return course
+        createCourse(course:Prisma.CourseCreateInput){
+            return this.databaseService.course.create({
+                data:course
+            })
         }
-        updateCourse(course:UpdateCourseDto){
+        updateCourse(course:Prisma.CourseUpdateInput){
             return {...course, msg:"yayy"}
         }
 }

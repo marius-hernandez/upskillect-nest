@@ -15,13 +15,22 @@ datasource db {
 
 
 model Course {
+  id              String       @id @default(uuid())
+  courseTitle     String       
+  instituteUuid   String
+  duration        Int
+  rating          Decimal  
+  startsAt        Int
+  description     String
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+}
+
+model Institute {
   id  Int @id @default(autoincrement())
-  courseTitle String 
   institute   String
   location    String
-  duration    Int
   rating      Decimal  
-  startsAt    Int
   description String
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
