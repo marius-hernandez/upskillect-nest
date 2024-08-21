@@ -1,4 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { CreateCourseDto } from './dto/create-course.dto';
+import { UpdateCourseDto } from './dto/update-user.dto';
+import { NotFoundError } from 'rxjs';
 
 @Injectable()
 export class CoursesService {
@@ -15,5 +18,15 @@ export class CoursesService {
 
         getCourses(offset=0, limit=5){
             return this.courses.slice(offset,offset+limit)
+        }
+        getCourse(id:number){
+            throw new NotFoundException("User not found")
+        }
+
+        postCourse(course:CreateCourseDto){
+            return course
+        }
+        updateCourse(course:UpdateCourseDto){
+            return {...course, msg:"yayy"}
         }
 }
