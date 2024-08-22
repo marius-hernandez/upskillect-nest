@@ -1,6 +1,7 @@
 import { Body, Controller, DefaultValuePipe, Get, Param, ParseIntPipe, Patch, Post, Query, ValidationPipe } from '@nestjs/common';
 import { CoursesService } from './courses.service';
 import { Prisma } from '@prisma/client';
+import { CreateCoursesDto } from './dto/create-courses.dto';
 
 @Controller('courses')
 export class CoursesController {
@@ -15,7 +16,7 @@ export class CoursesController {
     }
     
     @Post()
-    postCourse(@Body(ValidationPipe) course:Prisma.CourseCreateInput){
+    postCourse(@Body(ValidationPipe) course: CreateCoursesDto){
         return this.coursesService.postCourse(course)
     }
     @Patch(':id')
