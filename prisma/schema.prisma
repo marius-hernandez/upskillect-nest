@@ -29,7 +29,7 @@ model Course {
 
 model Institute {
   uuid        String   @id @default(uuid())
-  instute     String
+  institute     String
   location    String
   rating      Decimal
   description String

@@ -2,7 +2,7 @@ import { IsString, IsNotEmpty, IsNumber, Min, Max } from 'class-validator';
 
 export class CreateInstituteDto {
     @IsNotEmpty()
-    instute:string
+    institute:string
     @IsNotEmpty()
     location: string
     rating:      number
