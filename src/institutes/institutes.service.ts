@@ -5,9 +5,7 @@ import { DatabaseService } from 'src/database/database.service';
 
 @Injectable()
 export class InstitutesService {
-  constructor(private readonly databaseService: DatabaseService){
-
-  }
+  constructor(private readonly databaseService: DatabaseService){}
 
   async getInstitutes() {
     return this.databaseService.institute.findMany()
