@@ -13,36 +13,46 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Course {
-  uuid          String    @id @default(uuid())
-  instituteUuid String
-  courseTitle   String
-  duration      Int
-  rating        Decimal
-  startsAt      Int
-  description   String
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  // institute     Institute @relation(fields: [instituteUuid], references: [uuid])
-  // CouseList     CourseList[]
-}
+// model Course {
+//   uuid          String    @id @default(uuid())
+//   instituteUuid String
+//   courseTitle   String
+//   duration      Int
+//   rating        Decimal
+//   startsAt      Int
+//   description   String
+//   createdAt     DateTime  @default(now())
+//   updatedAt     DateTime  @updatedAt
+//   // institute     Institute @relation(fields: [instituteUuid], references: [uuid])
+//   // CouseList     CourseList[]
+// }
 
-model Institute {
-  uuid        String   @id @default(uuid())
-  institute     String
-  location    String
-  rating      Decimal
-  description String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  // Courses      Course[]
-  // CourseList   CourseList[]
-}
+// model Institute {
+//   uuid        String   @id @default(uuid())
+//   institute     String
+//   location    String
+//   rating      Decimal
+//   description String
+//   createdAt   DateTime @default(now())
+//   updatedAt   DateTime @updatedAt
+//   // Courses      Course[]
+//   // CourseList   CourseList[]
+// }
 
-model CourseList{
-  uuid            String   @id @default(uuid())
-  courseUuid      String    
-  instituteUuid   String 
-  // course          Course      @relation(fields: [courseUuid], references: [uuid]) 
-  // institute       Institute   @relation(fields: [instituteUuid], references: [uuid])
+// model CourseList{
+//   uuid            String   @id @default(uuid())
+//   courseUuid      String    
+//   instituteUuid   String 
+//   // course          Course      @relation(fields: [courseUuid], references: [uuid]) 
+//   // institute       Institute   @relation(fields: [instituteUuid], references: [uuid])
+// }
+
+
+model User{
+  uuid          String   @id @default(uuid())
+  username      String   
+  fullName      String
+  email         String
+  password      String 
+  
 }
